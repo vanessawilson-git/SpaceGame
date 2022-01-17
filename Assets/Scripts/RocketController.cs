@@ -22,58 +22,21 @@ public class RocketController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponentInChildren<Rigidbody2D>();
-
-        
+        rb = GetComponentInChildren<Rigidbody2D>();      
     }
 
     // Update is called once per frame
      void Update()
     {
 
-            if (TopButton.GetComponent<RectTrigger>().mIsTriggered)
-            {
-                if (rb.velocity.magnitude < maxSpeed)
-                {
-                    rb.AddForce(Vector2.up * speedforce);
-                }
-            }
+        AddRocketKinectMovement();
 
-
-            if (DownButton.GetComponent<RectTrigger>().mIsTriggered)
-            {
-                if (rb.velocity.magnitude < maxSpeed)
-                {
-                    rb.AddForce(Vector2.down * speedforce);
-                }
-            }
-
-            if (RightButton.GetComponent<RectTrigger>().mIsTriggered)
-            {
-                if (rb.velocity.magnitude < maxSpeed)
-                {
-                    rb.AddForce(Vector2.right * speedforce);
-                }
-            }
-
-
-            if (LeftButton.GetComponent<RectTrigger>().mIsTriggered)
-            {
-                if (rb.velocity.magnitude < maxSpeed)
-                {
-                    rb.AddForce(Vector2.left * speedforce);
-                }
-            }
-
-            dirX = Input.GetAxis("Horizontal") * moveSpeed;
-            dirY = Input.GetAxis("Vertical") * moveSpeed;
-
-
-      
-      
+         //keyoard movement
+        dirX = Input.GetAxis("Horizontal") * moveSpeed;
+        dirY = Input.GetAxis("Vertical") * moveSpeed;
+         
         var velocity = new Vector2(dirX, dirY);
         rb.position += velocity * Time.deltaTime;
-
 
      }
 
@@ -88,7 +51,58 @@ public class RocketController : MonoBehaviour
 
      }
 
+    void AddRocketKinectMovement() {
 
+        AddTopButtonMovement();
+        AddDownMovement();
+        AddLeftMovement();
+        AddRightMovement();
+    }
 
+    void AddTopButtonMovement() {
+
+        if (TopButton.GetComponent<RectTrigger>().mIsTriggered)
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+            {
+                rb.AddForce(Vector2.up * speedforce);
+            }
+        }
+    }
+
+    void AddDownMovement()
+    {
+        if (DownButton.GetComponent<RectTrigger>().mIsTriggered)
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+            {
+                rb.AddForce(Vector2.down * speedforce);
+            }
+        }
+
+    }
+
+    void AddLeftMovement()
+    {
+        if (LeftButton.GetComponent<RectTrigger>().mIsTriggered)
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+            {
+                rb.AddForce(Vector2.left * speedforce);
+            }
+        }
+
+    }
+
+    void AddRightMovement()
+    {
+        if (RightButton.GetComponent<RectTrigger>().mIsTriggered)
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+            {
+                rb.AddForce(Vector2.right * speedforce);
+            }
+        }
+    }
 
 }

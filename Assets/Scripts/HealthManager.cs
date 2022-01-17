@@ -21,9 +21,7 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
-        
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        setStartHealth();
 
     }
 
@@ -31,23 +29,7 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
 
-        respawnPoint = rocket.transform.position;
-        if (invincibilityCounter > 0)
-        {
-            invincibilityCounter -= Time.deltaTime;
-
-            flashCounter -= Time.deltaTime;
-            if (flashCounter <= 0)
-            {
-                rocketRenderer.enabled = !rocketRenderer.enabled;
-                flashCounter = flashLenght;
-            }
-
-            if (invincibilityCounter <= 0)
-            {
-                rocketRenderer.enabled = true;
-            }
-        }
+        setRespawnPoint();
     }
 
 
@@ -112,5 +94,52 @@ public class HealthManager : MonoBehaviour
         rocketRenderer.enabled = false;
         flashCounter = flashLenght;
 
+    }
+
+
+
+    void setStartHealth() {
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
+    }
+
+
+    void setRespawnPoint() {
+        respawnPoint = rocket.transform.position;
+        SlowyRevertInvincibilityCounter();
+    }
+
+
+
+    void SlowyRevertInvincibilityCounter() {
+        if (invincibilityCounter > 0)
+        {
+            invincibilityCounter -= Time.deltaTime;
+
+            FlashWhileInvincible();
+        }
+    }
+
+
+
+    void FlashWhileInvincible() {
+        flashCounter -= Time.deltaTime;
+        if (flashCounter <= 0)
+        {
+            rocketRenderer.enabled = !rocketRenderer.enabled;
+            flashCounter = flashLenght;
+        }
+
+        EnsureRenderStaysVisible();
+
+    }
+
+    void EnsureRenderStaysVisible() {
+        if (invincibilityCounter <= 0)
+        {
+            rocketRenderer.enabled = true;
+        }
     }
 }

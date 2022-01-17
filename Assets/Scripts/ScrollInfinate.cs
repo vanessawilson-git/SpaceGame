@@ -43,6 +43,15 @@ public class ScrollInfinate : MonoBehaviour
         offset = new Vector2(xVelocity, yVelocity);
         RocketController rocket = BaseRocket.GetComponent<RocketController>();
 
+
+        AdjustBackgroundScrollOffsetBasedOnRocketSpeed(rocket);
+
+
+
+    }
+
+    void AdjustBackgroundScrollOffsetBasedOnRocketSpeed(RocketController rocket) {
+
         if (rocket.rb.position != lastPositionRocket)
         {
             material.mainTextureOffset += new Vector2(Time.deltaTime * Input.GetAxis("Horizontal") * scrollSpeed, 0);
@@ -51,8 +60,5 @@ public class ScrollInfinate : MonoBehaviour
         }
 
         material.mainTextureOffset += offset * Time.deltaTime;
-
-        
-
     }
 }

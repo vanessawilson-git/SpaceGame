@@ -13,20 +13,7 @@ public class GameBorderCollider : MonoBehaviour
         // Start is called before the first frame update
     void Start()
     {
-        parentScript = GetComponentInParent<BorderColliderScript>();
-
-        foreach (Collider2D col in parentScript.astroidHolder.GetComponentsInChildren<Collider2D>())
-        {
-            thingsToIgnore.Add(col);
-        }
-
-        thingsToIgnore.Add(parentScript.Finish.GetComponent<Collider2D>());
-
-        foreach (Collider2D col in thingsToIgnore)
-        {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), col);
-        }
-
+        IgnoreCollisons();
     }
 
 
@@ -38,6 +25,36 @@ public class GameBorderCollider : MonoBehaviour
     }
 
 
+    void FillCollisionsToIgnoreList()
+    {
 
+        parentScript = GetComponentInParent<BorderColliderScript>();
+
+        foreach (Collider2D col in parentScript.astroidHolder.GetComponentsInChildren<Collider2D>())
+        {
+            thingsToIgnore.Add(col);
+        }
+
+    }
+
+
+    void IgnoreCollisonFinishLine() {
+        thingsToIgnore.Add(parentScript.Finish.GetComponent<Collider2D>());
+    }
+
+
+    void IgnoreCollisons() {
+
+        FillCollisionsToIgnoreList();
+
+        IgnoreCollisonFinishLine();
+
+        foreach (Collider2D col in thingsToIgnore)
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), col);
+        }
+
+
+    }
 
 }

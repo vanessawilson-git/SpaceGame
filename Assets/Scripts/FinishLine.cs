@@ -30,14 +30,10 @@ namespace Assets.Scripts
 
             Movement = new Vector3(-5f, 0, 0);
 
+            ChangeVelocityBasedOnRocket(scroll);
 
-            if (rocket.rb.position != lastPositionRocket)
-            {
-                rb.velocity = new Vector2(Time.deltaTime * Input.GetAxis("Horizontal") * scroll.scrollSpeed, 0);
-            }
 
             rb.velocity = Movement;
-
 
         }
 
@@ -57,6 +53,17 @@ namespace Assets.Scripts
             }
 
            
+         }
+
+
+        void ChangeVelocityBasedOnRocket(ScrollInfinate scroll) {
+
+            if (rocket.rb.position != lastPositionRocket)
+            {
+                rb.velocity = new Vector2(Time.deltaTime * Input.GetAxis("Horizontal") * scroll.scrollSpeed, 0);
+            }
+
         }
+
     }
 }

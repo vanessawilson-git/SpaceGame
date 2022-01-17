@@ -32,20 +32,7 @@ public class MoveAstroids : MonoBehaviour
         astroids = GetComponentsInChildren<Rigidbody2D>();
 
 
-        if (UseRandomness == true)
-        {
-            foreach (var rb in astroids)
-            {
-                GiveRandomEffect(rb, rocket, scroll);
-            }
-        }
-        else
-        {
-            foreach (var rb in astroids)
-            {
-                ConsistentAstroidMovement(rb, rocket,scroll);
-            }
-        }
+        CheckForRAndomness(rocket, scroll);
 
 
     }
@@ -145,6 +132,26 @@ public class MoveAstroids : MonoBehaviour
 
         rb.velocity = staticMovement;
         //Debug.Log("optionConsistent");
+
+    }
+
+
+
+    void CheckForRAndomness(RocketController rocket, ScrollInfinate scroll) {
+        if (UseRandomness == true)
+        {
+            foreach (var rb in astroids)
+            {
+                GiveRandomEffect(rb, rocket, scroll);
+            }
+        }
+        else
+        {
+            foreach (var rb in astroids)
+            {
+                ConsistentAstroidMovement(rb, rocket, scroll);
+            }
+        }
 
     }
 }

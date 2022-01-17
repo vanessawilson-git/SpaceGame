@@ -17,10 +17,11 @@ public class StartScreenButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startButton.GetComponentInChildren<RectTrigger>().mIsTriggered)
-        {
-            SceneManager.LoadScene(sceneName: "Calirate");
-        }
+        CheckButtonsOnScreenPressed();
+    }
+
+
+    void CheckQuitButtonPressed() {
 
         if (quitButton.GetComponentInChildren<RectTrigger>().mIsTriggered)
         {
@@ -28,5 +29,16 @@ public class StartScreenButton : MonoBehaviour
         }
     }
 
+    void CheckStartButtonPressed() {
+        if (startButton.GetComponentInChildren<RectTrigger>().mIsTriggered)
+        {
+            SceneManager.LoadScene(sceneName: "Calirate");
+        }
 
+    }
+
+    void CheckButtonsOnScreenPressed() {
+        CheckStartButtonPressed();
+        CheckQuitButtonPressed();
+    }
 }
